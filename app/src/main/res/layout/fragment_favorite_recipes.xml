@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    tools:context=".FavoriteRecipesFragment">
+    tools:context=".ui.fragments.favorites.FavoriteRecipesFragment">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
