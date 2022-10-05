@@ -1,7 +1,5 @@
 package com.example.foody.bindingadapters
 
-import android.net.Network
-import android.opengl.Visibility
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -47,5 +45,4 @@ class RecipesBinding {
             }
         }
     }
-
 }
