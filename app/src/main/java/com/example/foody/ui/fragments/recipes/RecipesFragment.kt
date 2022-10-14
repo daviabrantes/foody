@@ -74,6 +74,7 @@ class RecipesFragment : Fragment() {
                 is NetworkResult.Success -> {
                     response.data?.let { mAdapter.setData(it) }
                 }
+
                 is NetworkResult.Error -> {
                     loadDataFromCache()
                     Toast.makeText(
