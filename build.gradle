@@ -7,5 +7,6 @@ plugins {
 
 allprojects{
     repositories {
+        gradle
     }
 }
