@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import coil.load
 import com.example.foody.R
 import com.example.foody.ui.fragments.recipes.RecipesFragment
+import org.jsoup.Jsoup
+import java.io.FileDescriptor
 import java.lang.Exception
 
 class RecipesRowBinding {
@@ -75,6 +77,15 @@ class RecipesRowBinding {
                         )
                     }
                 }
+            }
+        }
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView, description: String?) {
+            if (description != null) {
+                val desc = Jsoup.parse(description).text()
+                textView.text = desc
             }
         }
     }
