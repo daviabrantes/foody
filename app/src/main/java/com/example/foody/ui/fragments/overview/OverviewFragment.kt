@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import coil.load
 import com.example.foody.R
+import com.example.foody.models.Result
 import com.example.foody.util.Constants.Companion.RECIPE_RESULT_KEY
 import kotlinx.android.synthetic.main.fragment_overview.view.cheap_imageView
 import kotlinx.android.synthetic.main.fragment_overview.view.cheap_textView
