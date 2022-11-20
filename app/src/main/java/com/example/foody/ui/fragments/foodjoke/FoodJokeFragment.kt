@@ -23,7 +23,7 @@ class FoodJokeFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels<MainViewModel>()
 
     private var _binding: FragmentFoodJokeBinding? = null
-    private val binding get() = _binding?
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +57,7 @@ class FoodJokeFragment : Fragment() {
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readFoodJoke.observe(viewLifecycleOwner) { database ->
-                if(database.isNotEmpty() && database != null) {
+                if(!database.isNullOrEmpty()) {
                     binding?.foodJokeTextView?.text = database[0].foodJoke.text
                 }
             }
