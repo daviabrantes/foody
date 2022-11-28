@@ -17,10 +17,10 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/food_joke_cardView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             readApiResponse3="@{mainViewModel.foodJokeResponse}"
             readDatabase3="@{mainViewModel.readFoodJoke}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:visibility="invisible"
@@ -63,9 +63,9 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
+            readApiResponse3="@{mainViewModel.foodJokeResponse}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            readApiResponse3="@{mainViewModel.foodJokeResponse}"
             android:layout_marginBottom="24dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -74,10 +74,10 @@
 
         <ImageView
             android:id="@+id/food_joke_error_imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             readApiResponse4="@{mainViewModel.foodJokeResponse}"
             readDatabase4="@{mainViewModel.readFoodJoke}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:alpha="0.5"
             android:src="@drawable/ic_sad"
             android:visibility="invisible"
@@ -90,10 +90,10 @@
 
         <TextView
             android:id="@+id/food_joke_error_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             readApiResponse4="@{mainViewModel.foodJokeResponse}"
             readDatabase4="@{mainViewModel.readFoodJoke}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:alpha="0.5"
             android:text="Error"
