@@ -6,25 +6,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import com.example.foody.R
+import com.example.foody.databinding.FragmentInstructionsBinding
 import com.example.foody.util.Constants.Companion.RECIPE_RESULT_KEY
-import kotlinx.android.synthetic.main.fragment_instructions.view.instructions_webView
 
 class InstructionsFragment : Fragment() {
+
+    private var _binding: FragmentInstructionsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_instructions, container, false)
+    ): View {
+        _binding = FragmentInstructionsBinding.inflate(inflater, container, false)
 
         val args = arguments
         val myBundle: Result? = args?.getParcelable(RECIPE_RESULT_KEY)
 
-        view.instructions_webView.webViewClient = object: WebViewClient() {}
+        binding.instructionsWebView.webViewClient = object: WebViewClient() {}
         val websiteUrl: String = myBundle!!.sourceUrl
-        view.instructions_webView.loadUrl(websiteUrl)
+        binding.instructionsWebView.loadUrl(websiteUrl)
 
-        return view
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

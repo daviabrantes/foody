@@ -17,8 +17,6 @@ import com.example.foody.databinding.FragmentFavoriteRecipesBinding
 import com.example.foody.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_favorite_recipes.favoriteRecipesRecyclerView
-import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.favoriteRecipesRecyclerView
 
 @AndroidEntryPoint
 class FavoriteRecipesFragment : Fragment() {
@@ -73,8 +71,8 @@ class FavoriteRecipesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
         mAdapter.clearContextualActionMode()
     }
