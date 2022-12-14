@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Parcelable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,12 +29,13 @@ class MainViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
+    var recyclerViewState: Parcelable? = null
+
     /** ROOM DATABASE */
+
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
-    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> =
-        repository.local.readFavoriteRecipes().asLiveData()
-    val readFoodJoke: LiveData<List<FoodJokeEntity>> =
-        repository.local.readFoodJoke().asLiveData()
+    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
+    val readFoodJoke: LiveData<List<FoodJokeEntity>> = repository.local.readFoodJoke().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
         viewModelScope.launch(Dispatchers.IO) {
@@ -45,7 +47,7 @@ class MainViewModel @Inject constructor(
             repository.local.insertFavoriteRecipes(favoritesEntity)
         }
 
-    fun insertFoodJoke(foodJokeEntity: FoodJokeEntity) =
+    private fun insertFoodJoke(foodJokeEntity: FoodJokeEntity) =
         viewModelScope.launch(Dispatchers.IO) {
             repository.local.insertFoodJoke(foodJokeEntity)
         }
@@ -84,8 +86,8 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getRecipes(queries)
                 recipesResponse.value = handleFoodRecipesResponse(response)
 
-                val foodRecipe = recipesResponse.value?.data
-                if (foodRecipe != null) {
+                val foodRecipe = recipesResponse.value!!.data
+                if(foodRecipe != null) {
                     offlineCacheRecipes(foodRecipe)
                 }
             } catch (e: Exception) {
@@ -102,7 +104,6 @@ class MainViewModel @Inject constructor(
             try {
                 val response = repository.remote.searchRecipes(searchQuery)
                 searchedRecipesResponse.value = handleFoodRecipesResponse(response)
-
             } catch (e: Exception) {
                 searchedRecipesResponse.value = NetworkResult.Error("Recipes not found.")
             }
@@ -118,12 +119,12 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getFoodJoke(apiKey)
                 foodJokeResponse.value = handleFoodJokeResponse(response)
 
-                val foodJoke = foodJokeResponse.value?.data
-                if (foodJoke != null) {
+                val foodJoke = foodJokeResponse.value!!.data
+                if(foodJoke != null){
                     offlineCacheFoodJoke(foodJoke)
                 }
             } catch (e: Exception) {
-                foodJokeResponse.value = NetworkResult.Error("Joke not found.")
+                foodJokeResponse.value = NetworkResult.Error("Recipes not found.")
             }
         } else {
             foodJokeResponse.value = NetworkResult.Error("No Internet Connection.")
@@ -145,20 +146,16 @@ class MainViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 return NetworkResult.Error("Timeout")
             }
-
             response.code() == 402 -> {
                 return NetworkResult.Error("API Key Limited.")
             }
-
             response.body()!!.results.isNullOrEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }
-
             response.isSuccessful -> {
                 val foodRecipes = response.body()
                 return NetworkResult.Success(foodRecipes!!)
             }
-
             else -> {
                 return NetworkResult.Error(response.message())
             }
@@ -166,22 +163,19 @@ class MainViewModel @Inject constructor(
     }
 
     private fun handleFoodJokeResponse(response: Response<FoodJoke>): NetworkResult<FoodJoke> {
-        when {
+        return when {
             response.message().toString().contains("timeout") -> {
-                return NetworkResult.Error("Timeout")
+                NetworkResult.Error("Timeout")
             }
-
             response.code() == 402 -> {
-                return NetworkResult.Error("API Key Limited.")
+                NetworkResult.Error("API Key Limited.")
             }
-
             response.isSuccessful -> {
                 val foodJoke = response.body()
-                return NetworkResult.Success(foodJoke!!)
+                NetworkResult.Success(foodJoke!!)
             }
-
             else -> {
-                return NetworkResult.Error(response.message())
+                NetworkResult.Error(response.message())
             }
         }
     }
