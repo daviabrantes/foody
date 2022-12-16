@@ -1,4 +1,4 @@
-package com.example.foody.adapters
+package com.example.foody.bindingadapters
 
 import android.view.View
 import android.widget.ProgressBar
@@ -26,19 +26,16 @@ class FoodJokeBinding {
                         is ProgressBar -> {
                             view.visibility = View.VISIBLE
                         }
-
                         is MaterialCardView -> {
                             view.visibility = View.INVISIBLE
                         }
                     }
                 }
-
                 is NetworkResult.Error -> {
                     when (view) {
                         is ProgressBar -> {
                             view.visibility = View.INVISIBLE
                         }
-
                         is MaterialCardView -> {
                             view.visibility = View.VISIBLE
                             if (database != null) {
@@ -49,43 +46,42 @@ class FoodJokeBinding {
                         }
                     }
                 }
-
-                is NetworkResult.Success ->
-                    when (view) {
+                is NetworkResult.Success -> {
+                    when(view){
                         is ProgressBar -> {
                             view.visibility = View.INVISIBLE
                         }
-
                         is MaterialCardView -> {
                             view.visibility = View.VISIBLE
                         }
                     }
-
+                }
                 else -> {}
             }
         }
 
-        @BindingAdapter("readApiResponse4", "readDatabase4", requireAll = false)
+        @BindingAdapter("readApiResponse4", "readDatabase4", requireAll = true)
         @JvmStatic
         fun setErrorViewsVisibility(
             view: View,
             apiResponse: NetworkResult<FoodJoke>?,
             database: List<FoodJokeEntity>?
-        ) {
-            if (database != null) {
-                if (database.isEmpty()) {
+        ){
+            if(database != null){
+                if(database.isEmpty()){
                     view.visibility = View.VISIBLE
-                    if (view is TextView) {
-                        if (apiResponse != null) {
+                    if(view is TextView){
+                        if(apiResponse != null){
                             view.text = apiResponse.message.toString()
                         }
                     }
                 }
             }
-
-            if (apiResponse is NetworkResult.Success) {
+            if(apiResponse is NetworkResult.Success){
                 view.visibility = View.INVISIBLE
             }
         }
+
     }
+
 }
