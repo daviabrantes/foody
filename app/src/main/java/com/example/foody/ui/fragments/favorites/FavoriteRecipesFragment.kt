@@ -46,7 +46,7 @@ class FavoriteRecipesFragment : Fragment() {
         binding.mAdapter = mAdapter
 
         val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object: MenuProvider {
+        menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.favorites_recipes_menu, menu)
             }
@@ -63,11 +63,6 @@ class FavoriteRecipesFragment : Fragment() {
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
         return binding.root
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun showSnackBar() {
