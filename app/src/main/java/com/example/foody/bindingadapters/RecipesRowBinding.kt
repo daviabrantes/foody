@@ -10,9 +10,9 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import coil.load
 import com.example.foody.R
-import com.example.foody.ui.fragments.recipes.RecipesFragment
+import com.example.foody.models.Result
+import com.example.foody.ui.fragments.recipes.RecipesFragmentDirections
 import org.jsoup.Jsoup
-import java.io.FileDescriptor
 import java.lang.Exception
 
 class RecipesRowBinding {
@@ -22,6 +22,7 @@ class RecipesRowBinding {
         @BindingAdapter("onRecipeClickListener")
         @JvmStatic
         fun onRecipeClickListener(recipeRowLayout: ConstraintLayout, result: Result) {
+            Log.d("onRecipeClickListener", "CALLED")
             recipeRowLayout.setOnClickListener {
                 try {
                     val action =
@@ -55,7 +56,6 @@ class RecipesRowBinding {
                             )
                         )
                     }
-
                     is ImageView -> {
                         view.setColorFilter(
                             ContextCompat.getColor(
@@ -70,11 +70,13 @@ class RecipesRowBinding {
 
         @BindingAdapter("parseHtml")
         @JvmStatic
-        fun parseHtml(textView: TextView, description: String?) {
-            if (description != null) {
+        fun parseHtml(textView: TextView, description: String?){
+            if(description != null) {
                 val desc = Jsoup.parse(description).text()
                 textView.text = desc
             }
         }
+
     }
+
 }

@@ -24,6 +24,7 @@ class OverviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
         _binding = FragmentOverviewBinding.inflate(inflater, container, false)
 
         val args = arguments
@@ -47,7 +48,7 @@ class OverviewFragment : Fragment() {
 
     private fun updateColors(stateIsOn: Boolean, textView: TextView, imageView: ImageView) {
         if (stateIsOn) {
-            imageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
+            imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
             textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
     }

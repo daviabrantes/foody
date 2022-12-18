@@ -43,7 +43,7 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onResume() {
         super.onResume()
-        if (mainViewModel.recyclerViewState != null) {
+        if(mainViewModel.recyclerViewState != null){
             binding.recyclerview.layoutManager?.onRestoreInstanceState(mainViewModel.recyclerViewState)
         }
     }
@@ -148,7 +148,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                     response.data?.let { mAdapter.setData(it) }
                     recipesViewModel.saveMealAndDietType()
                 }
-
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
                     loadDataFromCache()
@@ -158,7 +157,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
                 is NetworkResult.Loading -> {
                     showShimmerEffect()
                 }
@@ -176,7 +174,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                     val foodRecipe = response.data
                     foodRecipe?.let { mAdapter.setData(it) }
                 }
-
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
                     loadDataFromCache()
@@ -186,7 +183,6 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
                 is NetworkResult.Loading -> {
                     showShimmerEffect()
                 }

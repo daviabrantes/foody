@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
 import com.example.foody.databinding.FragmentInstructionsBinding
-import com.example.foody.util.Constants.Companion.RECIPE_RESULT_KEY
+import com.example.foody.models.Result
+import com.example.foody.util.Constants
 
 class InstructionsFragment : Fragment() {
 
@@ -18,12 +19,13 @@ class InstructionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Inflate the layout for this fragment
         _binding = FragmentInstructionsBinding.inflate(inflater, container, false)
 
         val args = arguments
-        val myBundle: Result? = args?.getParcelable(RECIPE_RESULT_KEY)
+        val myBundle: Result? = args?.getParcelable(Constants.RECIPE_RESULT_KEY)
 
-        binding.instructionsWebView.webViewClient = object: WebViewClient() {}
+        binding.instructionsWebView.webViewClient = object : WebViewClient() {}
         val websiteUrl: String = myBundle!!.sourceUrl
         binding.instructionsWebView.loadUrl(websiteUrl)
 

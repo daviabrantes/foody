@@ -63,7 +63,6 @@ class DetailsActivity : AppCompatActivity() {
             fragments,
             this
         )
-
         binding.viewPager2.isUserInputEnabled = false
         binding.viewPager2.apply {
             adapter = pagerAdapter
@@ -81,6 +80,17 @@ class DetailsActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        } else if (item.itemId == R.id.save_to_favorites_menu && !recipeSaved) {
+            saveToFavorites(item)
+        } else if (item.itemId == R.id.save_to_favorites_menu && recipeSaved) {
+            removeFromFavorites(item)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun checkSavedRecipes(menuItem: MenuItem) {
         mainViewModel.readFavoriteRecipes.observe(this) { favoritesEntity ->
             try {
@@ -95,17 +105,6 @@ class DetailsActivity : AppCompatActivity() {
                 Log.d("DetailsActivity", e.message.toString())
             }
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-        } else if (item.itemId == R.id.save_to_favorites_menu && !recipeSaved) {
-            saveToFavorites(item)
-        } else if (item.itemId == R.id.save_to_favorites_menu && recipeSaved) {
-            removeFromFavorites(item)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun saveToFavorites(item: MenuItem) {
