@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="favoritesEntity"
             type="com.example.foody.data.database.entities.FavoritesEntity" />
@@ -91,9 +92,9 @@
 
                 <TextView
                     android:id="@+id/favorite_heart_textView"
-                    android:text="@{String.valueOf(favoritesEntity.result.aggregateLikes)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(favoritesEntity.result.aggregateLikes)}"
                     android:textAlignment="center"
                     android:textColor="@color/red"
                     app:layout_constraintStart_toStartOf="@+id/favorite_description_textView"
@@ -111,10 +112,10 @@
 
                 <TextView
                     android:id="@+id/favorite_clock_textView"
-                    android:text="@{String.valueOf(favoritesEntity.result.readyInMinutes)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:text="@{String.valueOf(favoritesEntity.result.readyInMinutes)}"
                     android:textAlignment="center"
                     android:textColor="@color/yellow"
                     app:layout_constraintStart_toEndOf="@+id/favorite_heart_textView"
@@ -128,7 +129,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/favorite_leaf_textView"
                     app:layout_constraintStart_toStartOf="@+id/favorite_leaf_textView"
                     app:layout_constraintTop_toTopOf="@+id/favorite_clock_imageView"
-                    app:srcCompat="@drawable/ic_tree" />
+                    app:srcCompat="@drawable/ic_leaf" />
 
                 <TextView
                     android:id="@+id/favorite_leaf_textView"

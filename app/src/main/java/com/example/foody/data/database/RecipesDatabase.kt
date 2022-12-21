@@ -16,4 +16,5 @@ import com.example.foody.data.database.entities.RecipesEntity
 abstract class RecipesDatabase: RoomDatabase() {
 
     abstract fun recipesDao(): RecipesDao
+
 }

@@ -1,29 +1,13 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-parcelize'
 
 android {
-    namespace 'com.example.foody'
-    compileSdk 33
-
-    kapt {
-        javacOptions {
-            option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-        }
-    }
-
-    sourceSets {
-        main {
-            java {
-                srcDirs += 'build/generated/source/navigation-args'
-            }
-        }
-    }
+    compileSdkVersion 33
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.foody"
@@ -31,12 +15,6 @@ android {
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,73 +43,66 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-        implementation 'androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0-alpha04'
+    // Material Components
+    implementation 'com.google.android.material:material:1.7.0'
 
-        implementation fileTree(dir: "libs", include: ["*.jar"])
-        implementation 'androidx.core:core-ktx:1.9.0'
-        implementation 'androidx.appcompat:appcompat:1.5.1'
-        implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-        implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-        testImplementation 'junit:junit:4.13.2'
-        androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-        androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    // Navigation Component
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
-        // Material Components
-        implementation 'com.google.android.material:material:1.7.0'
+    // Room components
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    androidTestImplementation "androidx.room:room-testing:2.4.3"
 
-        // Navigation Component
-        implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-        implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    // Data binding
+//    kapt "com.android.databinding:compiler:3.2.0-alpha10"
+//    kapt "androidx.databinding:databinding-common:4.2.2"
 
-        // Room components
-        implementation "androidx.room:room-runtime:2.4.3"
-        kapt "androidx.room:room-compiler:2.4.3"
-        implementation "androidx.room:room-ktx:2.4.3"
-        androidTestImplementation "androidx.room:room-testing:2.4.3"
+    // DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-        kapt "com.google.dagger:hilt-android-compiler:2.42"
+    // Recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
-        // Data binding
-        kapt "androidx.databinding:databinding-common:7.3.1"
-        kapt 'com.android.databinding:compiler:3.1.4'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-        // DataStore
-        implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.43.2"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
 
-        // Recyclerview
-        implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 
-        // Retrofit
-        implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-        implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
-        // Dagger - Hilt
-        implementation "com.google.dagger:hilt-android:2.43.2"
-        kapt "com.google.dagger:hilt-android-compiler:2.42"
+    // Image Loading library Coil
+    implementation "io.coil-kt:coil:2.2.1"
 
-        // Coroutines
-        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-        implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    // Gson
+    implementation 'com.google.code.gson:gson:2.9.1'
 
-        // Lifecycle
-        implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-        implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
-        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
-        implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
-        // Image Loading library Coil
-        implementation "io.coil-kt:coil:2.2.1"
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.13.1'
 
-        // Gson
-        implementation 'com.google.code.gson:gson:2.9.1'
-
-        // Shimmer
-        implementation 'com.facebook.shimmer:shimmer:0.5.0'
-
-        // Jsoup
-        implementation 'org.jsoup:jsoup:1.13.1'
-
-
-
-    }
+}

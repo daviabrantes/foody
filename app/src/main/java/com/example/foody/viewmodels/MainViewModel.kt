@@ -31,8 +31,7 @@ class MainViewModel @Inject constructor(
     /** ROOM DATABASE */
 
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
-    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> =
-        repository.local.readFavoriteRecipes().asLiveData()
+    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
     val readFoodJoke: LiveData<List<FoodJokeEntity>> = repository.local.readFoodJoke().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
@@ -85,7 +84,7 @@ class MainViewModel @Inject constructor(
                 recipesResponse.value = handleFoodRecipesResponse(response)
 
                 val foodRecipe = recipesResponse.value!!.data
-                if (foodRecipe != null) {
+                if(foodRecipe != null) {
                     offlineCacheRecipes(foodRecipe)
                 }
             } catch (e: Exception) {
@@ -118,7 +117,7 @@ class MainViewModel @Inject constructor(
                 foodJokeResponse.value = handleFoodJokeResponse(response)
 
                 val foodJoke = foodJokeResponse.value!!.data
-                if (foodJoke != null) {
+                if(foodJoke != null){
                     offlineCacheFoodJoke(foodJoke)
                 }
             } catch (e: Exception) {
@@ -144,20 +143,16 @@ class MainViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 return NetworkResult.Error("Timeout")
             }
-
             response.code() == 402 -> {
                 return NetworkResult.Error("API Key Limited.")
             }
-
             response.body()!!.results.isNullOrEmpty() -> {
                 return NetworkResult.Error("Recipes not found.")
             }
-
             response.isSuccessful -> {
                 val foodRecipes = response.body()
                 return NetworkResult.Success(foodRecipes!!)
             }
-
             else -> {
                 return NetworkResult.Error(response.message())
             }
@@ -169,16 +164,13 @@ class MainViewModel @Inject constructor(
             response.message().toString().contains("timeout") -> {
                 NetworkResult.Error("Timeout")
             }
-
             response.code() == 402 -> {
                 NetworkResult.Error("API Key Limited.")
             }
-
             response.isSuccessful -> {
                 val foodJoke = response.body()
                 NetworkResult.Success(foodJoke!!)
             }
-
             else -> {
                 NetworkResult.Error(response.message())
             }

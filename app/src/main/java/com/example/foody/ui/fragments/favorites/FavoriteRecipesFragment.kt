@@ -43,7 +43,7 @@ class FavoriteRecipesFragment : Fragment() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.favorites_recipes_menu, menu)
+                menuInflater.inflate(R.menu.favorite_recipes_menu, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

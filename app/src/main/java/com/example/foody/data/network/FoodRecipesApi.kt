@@ -16,10 +16,10 @@ interface FoodRecipesApi {
 
     @GET("/recipes/complexSearch")
     suspend fun searchRecipes(
-    @QueryMap searchQuery: Map<String, String>
+        @QueryMap searchQuery: Map<String, String>
     ): Response<FoodRecipe>
 
-    @GET("/food/jokes/random")
+    @GET("food/jokes/random")
     suspend fun getFoodJoke(
         @Query("apiKey") apiKey: String
     ): Response<FoodJoke>

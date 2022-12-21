@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foody.R
 import com.example.foody.adapters.IngredientsAdapter
 import com.example.foody.databinding.FragmentIngredientsBinding
 import com.example.foody.models.Result
@@ -35,8 +36,8 @@ class IngredientsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.ingredientsRecyclerView.adapter = mAdapter
-        binding.ingredientsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.ingredientsRecyclerview.adapter = mAdapter
+        binding.ingredientsRecyclerview.layoutManager = LinearLayoutManager(requireContext())
     }
 
     override fun onDestroyView() {
